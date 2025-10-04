@@ -7,17 +7,22 @@
 </head>
 <body>
   <!-- Hiệu ứng bong bóng bay -->
-<div class="bubble" style="left:10%"></div>
-<div class="bubble" style="left:30%"></div>
-<div class="bubble" style="left:50%"></div>
-<div class="bubble" style="left:70%"></div>
-<div class="bubble" style="left:90%"></div>
+  <div class="bubble" style="left:10%"></div>
+  <div class="bubble" style="left:30%"></div>
+  <div class="bubble" style="left:50%"></div>
+  <div class="bubble" style="left:70%"></div>
+  <div class="bubble" style="left:90%"></div>
 
   <!-- Nhạc nền -->
-  <audio id="bg-music" loop autoplay>
+  <audio id="bg-music" loop preload="auto" playsinline>
     <source src="nhac.mp3" type="audio/mpeg">
   </audio>
-  <button id="music-toggle">🔊 Tắt nhạc</button>
+  <button id="music-toggle" aria-pressed="false">🔈 Bật nhạc</button>
+
+  <!-- Overlay khi autoplay bị chặn -->
+  <div id="start-overlay" class="overlay">
+    <button id="start-btn">🎶 Chạm để bắt đầu - Kỷ niệm cấp 3 🎶</button>
+  </div>
 
   <!-- Slideshow -->
   <div class="slideshow-container">
@@ -36,12 +41,14 @@
       <img src="https://i.postimg.cc/wMvY4zQ1/image.png" alt="Ảnh 3">
       <div class="caption">Đừng ngủ khi lũ bạn còn thức</div>
     </div>
+
     <div class="slide fade">
-      <img src="https://i.postimg.cc/jj4Vs28R/image.png" alt="Ảnh 3">
+      <img src="https://i.postimg.cc/jj4Vs28R/image.png" alt="Ảnh 4">
       <div class="caption">No caption</div>
     </div>
+
     <div class="slide fade">
-      <img src="https://i.postimg.cc/sDkb77qz/image.png" alt="Ảnh 3">
+      <img src="https://i.postimg.cc/sDkb77qz/image.png" alt="Ảnh 5">
       <div class="caption">Hoài niệm</div>
     </div>
 
@@ -50,8 +57,10 @@
     <a class="next">&#10095;</a>
   </div>
 
-  <!-- Chấm nhỏ dưới -->
+  <!-- Dots -->
   <div class="dots-container">
+    <span class="dot"></span> 
+    <span class="dot"></span> 
     <span class="dot"></span> 
     <span class="dot"></span> 
     <span class="dot"></span> 
