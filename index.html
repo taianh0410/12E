@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Kỷ niệm cấp 3</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Hiệu ứng bong bóng bay -->
+<div class="bubble" style="left:10%"></div>
+<div class="bubble" style="left:30%"></div>
+<div class="bubble" style="left:50%"></div>
+<div class="bubble" style="left:70%"></div>
+<div class="bubble" style="left:90%"></div>
+
+  <!-- Nhạc nền -->
+  <audio id="bg-music" loop autoplay>
+    <source src="nhac.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-toggle">🔊 Tắt nhạc</button>
+
+  <!-- Slideshow -->
+  <div class="slideshow-container">
+
+    <div class="slide fade">
+      <img src="https://i.postimg.cc/dV7tt2Cz/image.png" alt="Ảnh 1">
+      <div class="caption">Hotboy</div>
+    </div>
+
+    <div class="slide fade">
+      <img src="https://i.postimg.cc/59nxB7Sb/image.png" alt="Ảnh 2">
+      <div class="caption">Ăn cũng không yên</div>
+    </div>
+
+    <div class="slide fade">
+      <img src="https://i.postimg.cc/wMvY4zQ1/image.png" alt="Ảnh 3">
+      <div class="caption">Đừng ngủ khi lũ bạn còn thức</div>
+    </div>
+    <div class="slide fade">
+      <img src="https://i.postimg.cc/jj4Vs28R/image.png" alt="Ảnh 3">
+      <div class="caption">No caption</div>
+    </div>
+    <div class="slide fade">
+      <img src="https://i.postimg.cc/sDkb77qz/image.png" alt="Ảnh 3">
+      <div class="caption">Hoài niệm</div>
+    </div>
+
+    <!-- Nút điều khiển -->
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+  </div>
+
+  <!-- Chấm nhỏ dưới -->
+  <div class="dots-container">
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
