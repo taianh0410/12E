@@ -37,10 +37,13 @@ const startBtn = document.getElementById("start-btn");
 
 // Khi click "Chạm để bắt đầu"
 startBtn.addEventListener("click", () => {
-  music.play();
-  overlay.style.display = "none";
-  musicToggle.textContent = "🔊 Tắt nhạc";
-  musicToggle.setAttribute("aria-pressed", "true");
+  overlay.style.display = "none"; // Ẩn overlay
+  music.play().then(() => {
+    musicToggle.textContent = "🔊 Tắt nhạc";
+    musicToggle.setAttribute("aria-pressed", "true");
+  }).catch(err => {
+    console.log("Không phát được nhạc:", err);
+  });
 });
 
 // Nút bật/tắt nhạc
