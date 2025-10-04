@@ -5,19 +5,22 @@ showSlides();
 function showSlides() {
   let slides = document.getElementsByClassName("slide");
   let dots = document.getElementsByClassName("dot");
-
+  
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";  
   }
   slideIndex++;
   if (slideIndex > slides.length) { slideIndex = 1 }    
-
+    
   for (let i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
-
+  
+  // Thêm class hiệu ứng
   slides[slideIndex-1].style.display = "block";  
+  slides[slideIndex-1].classList.add("fade","zoom");  
   dots[slideIndex-1].className += " active";
+
   setTimeout(showSlides, 4000); // đổi ảnh mỗi 4 giây
 }
 
