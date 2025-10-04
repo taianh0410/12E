@@ -1,32 +1,68 @@
 body {
   margin: 0;
-  background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+  background: linear-gradient(to bottom, #141e30, #243b55);
+  font-family: sans-serif;
   color: #fff;
-  font-family: Arial, sans-serif;
   text-align: center;
   overflow-x: hidden;
 }
 
 /* Bong bóng */
 .bubble {
-  position: fixed;
-  bottom: -100px;
+  position: absolute;
+  bottom: -50px;
   width: 20px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255,255,255,0.3);
   border-radius: 50%;
   animation: rise 10s infinite ease-in;
 }
 @keyframes rise {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+  0% { transform: translateY(0); opacity: 0.5; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.overlay button {
+  font-size: 1.2em;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Nút nhạc */
+#music-toggle {
+  position: fixed;
+  top: 10px; right: 10px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  z-index: 50;
 }
 
 /* Slideshow */
 .slideshow-container {
+  max-width: 800px;
   position: relative;
-  max-width: 700px;
-  margin: 80px auto;
+  margin: 60px auto 20px auto;
 }
 .slide {
   display: none;
@@ -35,79 +71,62 @@ body {
 .slide img {
   width: 100%;
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 .caption {
   position: absolute;
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0,0,0,0.5);
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 18px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 10px;
+  font-size: 1.1em;
 }
+
+/* Hiệu ứng fade */
 .fade {
-  animation: fadeEffect 1s;
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
-@keyframes fadeEffect {
-  from {opacity: 0.4} 
-  to {opacity: 1}
+@keyframes fade {
+  from { opacity: .4; }
+  to { opacity: 1; }
+}
+
+/* Hiệu ứng zoom */
+.zoom img {
+  animation: zoom-in 4s ease-in-out;
+}
+@keyframes zoom-in {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* (Tùy chọn) Hiệu ứng trượt ngang */
+.slide-left {
+  animation: slide-left 1.5s;
+}
+@keyframes slide-left {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 /* Dots */
 .dots-container {
   text-align: center;
-  margin-top: 15px;
 }
 .dot {
-  cursor: pointer;
-  height: 14px;
-  width: 14px;
+  height: 15px;
+  width: 15px;
   margin: 0 3px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
-  transition: background 0.6s;
+  transition: background 0.6s ease;
 }
-.active, .dot:hover {
-  background-color: #fff;
-}
-
-/* Nút nhạc */
-#music-toggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* Overlay */
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.overlay button {
-  font-size: 20px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  background: #ff6f91;
-  color: white;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-.overlay button:hover {
-  background: #ff3d6e;
+.active {
+  background-color: #ffcc00;
 }
