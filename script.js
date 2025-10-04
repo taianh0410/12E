@@ -1,55 +1,57 @@
 let slideIndex = 0;
-let slides = document.getElementsByClassName("slide");
-let dots = document.getElementsByClassName("dot");
-showSlides(slideIndex);
+showSlides();
 
-// Nút next/prev
-document.querySelector(".prev").addEventListener("click", () => plusSlides(-1));
-document.querySelector(".next").addEventListener("click", () => plusSlides(1));
-
-function plusSlides(n) {
-  slideIndex += n;
-  if (slideIndex >= slides.length) slideIndex = 0;
-  if (slideIndex < 0) slideIndex = slides.length - 1;
-  showSlides(slideIndex);
-}
-
-function currentSlide(n) {
-  slideIndex = n;
-  showSlides(slideIndex);
-}
-
-function showSlides(n) {
+// Slideshow tự chạy
+function showSlides() {
+  let slides = document.getElementsByClassName("slide");
+  let dots = document.getElementsByClassName("dot");
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";  
   }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
   for (let i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
-  slides[n].style.display = "block";  
-  dots[n].className += " active";
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 4000); // đổi ảnh mỗi 4 giây
 }
 
-// Tự động chuyển ảnh
-setInterval(() => {
-  plusSlides(1);
-}, 5000);
+// Nút next / prev
+document.querySelector(".next").onclick = () => {
+  slideIndex++;
+  showSlides();
+};
+document.querySelector(".prev").onclick = () => {
+  slideIndex--;
+  if (slideIndex < 1) slideIndex = document.getElementsByClassName("slide").length;
+  showSlides();
+};
 
-// Bấm vào dot
-for (let i = 0; i < dots.length; i++) {
-  dots[i].addEventListener("click", () => currentSlide(i));
-}
+// Nhạc nền
+const music = document.getElementById("bg-music");
+const musicToggle = document.getElementById("music-toggle");
+const overlay = document.getElementById("start-overlay");
+const startBtn = document.getElementById("start-btn");
 
-// Điều khiển nhạc
-let music = document.getElementById("bg-music");
-let musicToggle = document.getElementById("music-toggle");
+// Khi click "Chạm để bắt đầu"
+startBtn.addEventListener("click", () => {
+  music.play();
+  overlay.style.display = "none";
+  musicToggle.textContent = "🔊 Tắt nhạc";
+  musicToggle.setAttribute("aria-pressed", "true");
+});
 
+// Nút bật/tắt nhạc
 musicToggle.addEventListener("click", () => {
   if (music.paused) {
     music.play();
     musicToggle.textContent = "🔊 Tắt nhạc";
+    musicToggle.setAttribute("aria-pressed", "true");
   } else {
     music.pause();
     musicToggle.textContent = "🔈 Bật nhạc";
+    musicToggle.setAttribute("aria-pressed", "false");
   }
 });
