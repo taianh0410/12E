@@ -1,178 +1,52 @@
-body {
-  margin: 0;
-  background: linear-gradient(135deg, #3b8d99, #6b6b83, #aa4b6b); /* màu kỷ niệm */
-  background-attachment: fixed;
-  color: #fff;
-  font-family: 'Comic Sans MS', cursive, sans-serif; /* font tinh nghịch tuổi học trò */
-  text-align: center;
-  overflow-x: hidden;
+let slideIndex = 0;
+showSlides();
+
+// Slideshow tự chạy
+function showSlides() {
+  let slides = document.getElementsByClassName("slide");
+  let dots = document.getElementsByClassName("dot");
+  
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) { slideIndex = 1 }    
+    
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 4000); // đổi ảnh mỗi 4 giây
 }
 
-/* Thêm hiệu ứng background "ngôi sao lấp lánh" */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity: 0.3;
-  z-index: -1;
-}
+// Nhạc nền
+const music = document.getElementById("bg-music");
+const musicToggle = document.getElementById("music-toggle");
+const overlay = document.getElementById("start-overlay");
+const startBtn = document.getElementById("start-btn");
 
-.slideshow-container {
-  position: relative;
-  max-width: 700px; /* nhỏ hơn */
-  margin: 50px auto;
-  border: 4px dashed #fff; /* khung kiểu vở học trò */
-  border-radius: 20px;
-  padding: 10px;
-  background: rgba(0,0,0,0.2);
-}
+// Khi click "Chạm để bắt đầu"
+startBtn.addEventListener("click", () => {
+  overlay.style.display = "none"; // Ẩn overlay
+  music.play().then(() => {
+    musicToggle.textContent = "🔊 Tắt nhạc";
+    musicToggle.setAttribute("aria-pressed", "true");
+  }).catch(err => {
+    console.log("Không phát được nhạc:", err);
+  });
+});
 
-.slide {
-  display: none;
-  position: relative;
-}
-
-.slide img {
-  width: 70%; /* nhỏ lại */
-  border-radius: 15px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-  animation: kenburns 8s ease-in-out forwards; /* hiệu ứng zoom nhẹ */
-}
-
-/* Caption */
-.caption {
-  color: #fff;
-  font-size: 18px;
-  padding: 6px 12px;
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.5);
-  border-radius: 10px;
-  font-style: italic;
-}
-
-/* Nút điều khiển */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  padding: 14px;
-  margin-top: -22px;
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  transition: 0.3s;
-  user-select: none;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.4);
-}
-.next { right: 0; }
-.prev:hover, .next:hover { background: rgba(0,0,0,0.7); }
-
-/* Chấm chỉ số */
-.dots-container {
-  text-align: center;
-  margin-top: 15px;
-}
-.dot {
-  cursor: pointer;
-  height: 12px;
-  width: 12px;
-  margin: 0 4px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background 0.6s;
-}
-.active, .dot:hover {
-  background-color: #fff;
-}
-
-/* Hiệu ứng fade */
-.fade {
-  animation: fadeEffect 1s;
-}
-@keyframes fadeEffect {
-  from {opacity: 0.3} 
-  to {opacity: 1}
-}
-
-/* Ken Burns Zoom */
-@keyframes kenburns {
-  0% { transform: scale(1) }
-  100% { transform: scale(1.15) }
-}
-
-/* Nút nhạc */
-#music-toggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* Hiệu ứng bong bóng bay (tuổi học trò bay bổng 😆) */
-.bubble {
-  position: fixed;
-  bottom: -50px;
-  width: 20px;
-  height: 20px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  animation: rise 10s infinite ease-in;
-}
-@keyframes rise {
-  from { transform: translateY(0) scale(1); opacity: 0.6; }
-  to { transform: translateY(-110vh) scale(1.5); opacity: 0; }
-}
-/* Overlay khi bắt đầu */
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.overlay button {
-  background: #ff4081;
-  color: #fff;
-  font-size: 20px;
-  padding: 15px 25px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  transition: 0.3s;
-}
-
-.overlay button:hover {
-  background: #e91e63;
-  transform: scale(1.05);
-}
-
-/* Nút nhạc */
-#music-toggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 1000;
-}
-
+// Nút bật/tắt nhạc
+musicToggle.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    musicToggle.textContent = "🔊 Tắt nhạc";
+    musicToggle.setAttribute("aria-pressed", "true");
+  } else {
+    music.pause();
+    musicToggle.textContent = "🔈 Bật nhạc";
+    musicToggle.setAttribute("aria-pressed", "false");
+  }
+});
