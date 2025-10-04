@@ -18,15 +18,7 @@ function showSlides() {
   setTimeout(showSlides, 4000); // đổi ảnh mỗi 4 giây
 }
 
-// Nút next / prev
-document.querySelector(".next").onclick = () => {
-  slideIndex++;
-  showSlides();
-};
-document.querySelector(".prev").onclick = () => {
-  slideIndex--;
-  if (slideIndex < 1) slideIndex = document.getElementsByClassName("slide").length;
-  showSlides();
+ 
 };
 
 // Nhạc nền
@@ -58,3 +50,4 @@ musicToggle.addEventListener("click", () => {
     musicToggle.setAttribute("aria-pressed", "false");
   }
 });
+
