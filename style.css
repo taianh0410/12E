@@ -1,52 +1,113 @@
-let slideIndex = 0;
-showSlides();
-
-// Slideshow tự chạy
-function showSlides() {
-  let slides = document.getElementsByClassName("slide");
-  let dots = document.getElementsByClassName("dot");
-  
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) { slideIndex = 1 }    
-    
-  for (let i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 4000); // đổi ảnh mỗi 4 giây
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
 }
 
-// Nhạc nền
-const music = document.getElementById("bg-music");
-const musicToggle = document.getElementById("music-toggle");
-const overlay = document.getElementById("start-overlay");
-const startBtn = document.getElementById("start-btn");
+/* Bong bóng */
+.bubble {
+  position: fixed;
+  bottom: -100px;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: rise 10s infinite ease-in;
+}
+@keyframes rise {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+}
 
-// Khi click "Chạm để bắt đầu"
-startBtn.addEventListener("click", () => {
-  overlay.style.display = "none"; // Ẩn overlay
-  music.play().then(() => {
-    musicToggle.textContent = "🔊 Tắt nhạc";
-    musicToggle.setAttribute("aria-pressed", "true");
-  }).catch(err => {
-    console.log("Không phát được nhạc:", err);
-  });
-});
+/* Slideshow */
+.slideshow-container {
+  position: relative;
+  max-width: 700px;
+  margin: 80px auto;
+}
+.slide {
+  display: none;
+  position: relative;
+}
+.slide img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+}
+.caption {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.5);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+.fade {
+  animation: fadeEffect 1s;
+}
+@keyframes fadeEffect {
+  from {opacity: 0.4} 
+  to {opacity: 1}
+}
 
-// Nút bật/tắt nhạc
-musicToggle.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    musicToggle.textContent = "🔊 Tắt nhạc";
-    musicToggle.setAttribute("aria-pressed", "true");
-  } else {
-    music.pause();
-    musicToggle.textContent = "🔈 Bật nhạc";
-    musicToggle.setAttribute("aria-pressed", "false");
-  }
-});
+/* Dots */
+.dots-container {
+  text-align: center;
+  margin-top: 15px;
+}
+.dot {
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+  margin: 0 3px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background 0.6s;
+}
+.active, .dot:hover {
+  background-color: #fff;
+}
+
+/* Nút nhạc */
+#music-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.overlay button {
+  font-size: 20px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #ff6f91;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.overlay button:hover {
+  background: #ff3d6e;
+}
